@@ -11,10 +11,11 @@ import java.awt.event.WindowEvent;
  */
 public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 200, Dir.DOWN);
-    Bullet bullet =   new Bullet(300, 300, Dir.DOWN);
+    Bullet bullet = new Bullet(300, 300, Dir.DOWN);
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;//抽出游戏高度和宽度
 
     public TankFrame() {
-        setSize(800, 600);//设置窗口大小
+        setSize(GAME_WIDTH, GAME_HEIGHT);//设置窗口大小
         setResizable(false); //设置窗口是否可以缩放
         setTitle("坦克大战");//设置窗口的title
         setVisible(true);//设置窗口是否可见
@@ -30,13 +31,34 @@ public class TankFrame extends Frame {
             }
         });
     }
+
+    /**
+     *  双缓冲概念解决屏幕闪烁
+     *  1.这里有两只画笔,一个系统创建的画笔,首先先将图片背景颜色画到内存中
+     *  2.然后利用这个
+     */
+    Image offScreenImg = null; //定义一张图片在内存中,未画出
+    @Override
+    public void update(Graphics g) {//这里是系统的画笔
+        if (offScreenImg == null) {
+            offScreenImg = this.createImage(GAME_WIDTH, GAME_HEIGHT);//在内存创建图片出来
+        }
+        Graphics gOffScreen = offScreenImg.getGraphics();//用图片拿到画笔
+        Color color = gOffScreen.getColor();//设置color
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);//绘制这个图片
+        gOffScreen.setColor(color);//设置回来原来的颜色
+        paint(gOffScreen);
+        g.drawImage(offScreenImg,0,0,null);//将内存中的图片画到内存中
+    }
+
     /**
      * 绘画窗口的方法
      *
      * @param g
      */
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g) {//这里绘制的画笔是图片的,会画到内存中
         System.out.println("调用了paint 方法");
         myTank.paint(g);//绘制坦克
         bullet.paint(g);//绘制子弹

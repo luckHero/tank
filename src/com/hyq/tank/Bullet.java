@@ -9,8 +9,8 @@ import java.awt.*;
  */
 public class Bullet {
     private int x,y;
-    private static int WIDTH=30,HEIGHT=30;
-    private static final int SPEED = 6;//子弹速度
+    private static int WIDTH=30,HEIGHT=30; //子弹的宽高
+    private static final int SPEED = 1;//子弹速度
     private Dir dir;//子弹的方向
     public Bullet(int x, int y, Dir dir) {
         this.x = x;
@@ -18,11 +18,9 @@ public class Bullet {
         this.dir = dir;
     }
 
-    public Bullet() {
-    }
     //绘制子弹的方法
     public void paint(Graphics g){
-        g.setColor(Color.RED);
+        g.setColor(Color.RED);//设置子弹颜色
         g.fillOval(x,y,WIDTH,HEIGHT);//绘制一个矩形的内切圆
         move();
     }
