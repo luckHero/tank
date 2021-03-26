@@ -10,7 +10,11 @@ import java.awt.event.WindowEvent;
  * 继承Frame类,绘制画笔
  */
 public class TankFrame extends Frame {
+    //定义坦克的初始位置
     int x = 200, y = 200;
+    //定义坦克的方向
+    Dir dir = Dir.DOWN;
+    static final int SPEED = 10;
 
     public TankFrame() {
         setSize(800, 600);//设置窗口大小
@@ -38,6 +42,21 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         System.out.println("调用了paint 方法");
         g.fillRect(x, y, 60, 60);//改变方块的大小
+        //判断键盘按下的位置,
+        switch (dir) {
+            case LEFT:
+                x -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            case UP:
+                y -= SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+        }
     }
 
     /**
@@ -50,14 +69,15 @@ public class TankFrame extends Frame {
         boolean bU = false;
         boolean bD = false;
 
-        @Override
         //键盘被按下时调用
+        @Override
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getExtendedKeyCode();
             System.out.println("键盘按下的方法...111" + keyCode);
             switch (keyCode) {
                 case KeyEvent.VK_LEFT: //向左
                     bL = true;
+
                     //x-=20;
                     System.out.println(x + ":" + y);
                     break;
@@ -76,13 +96,13 @@ public class TankFrame extends Frame {
                     bD = true;
                     System.out.println(x + ":" + y);
                     break;
-
             }
+            setMainTankDir();
             //  repaint();//从新调用画布
         }
 
-        @Override
         //键盘被放开
+        @Override
         public void keyReleased(KeyEvent e) {
             int keyCode = e.getExtendedKeyCode();
             switch (keyCode) {
@@ -99,7 +119,17 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
             }
+            setMainTankDir();
             System.out.println("键盘放开的方法....222" + keyCode);
+        }
+
+        //设置主站坦克的方向
+        private void setMainTankDir() {
+            //判断当前那个键盘被按下,设置坦克方向
+            if (bL) dir = Dir.LEFT;
+            if (bR) dir = Dir.RIGHT;
+            if (bU) dir = Dir.UP;
+            if (bD) dir = Dir.DOWN;
         }
     }
 
