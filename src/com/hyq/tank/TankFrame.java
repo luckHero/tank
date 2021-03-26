@@ -17,7 +17,7 @@ public class TankFrame extends Frame {
         setResizable(false); //设置窗口是否可以缩放
         setTitle("坦克大战");//设置窗口的title
         setVisible(true);//设置窗口是否可见
-        setBackground(Color.CYAN);
+       // setBackground(Color.CYAN);
         //添加键盘某个键盘监听的方法
         this.addKeyListener(new MyListener());
         //为当前类添加关闭窗口的监听事件,
@@ -50,9 +50,9 @@ public class TankFrame extends Frame {
         boolean bR = false;
         boolean bU = false;
         boolean bD = false;
-        //键盘被按下时调用
+        //控制坦克方向
         @Override
-        public void keyPressed(KeyEvent e) {
+        public void keyPressed(KeyEvent e) { //键盘被按下时调用
             int keyCode = e.getExtendedKeyCode();
             System.out.println("键盘按下的方法...111" + keyCode);
             switch (keyCode) {
@@ -69,13 +69,13 @@ public class TankFrame extends Frame {
                     bD = true;
                     break;
             }
-            setMainTankDir();
+            setMainTankDir();//
             //  repaint();//从新调用画布
         }
 
-        //键盘被放开
+       //控制键盘放开,坦克方向改变
         @Override
-        public void keyReleased(KeyEvent e) {
+        public void keyReleased(KeyEvent e) { //键盘被放开
             int keyCode = e.getExtendedKeyCode();
             switch (keyCode) {
                 case KeyEvent.VK_LEFT: //向左
@@ -95,19 +95,19 @@ public class TankFrame extends Frame {
             System.out.println("键盘放开的方法....222" + keyCode);
         }
 
-        //设置主站坦克的方向
+        //移动主站坦克的方向
         private void setMainTankDir() {
-            //设置坦克移动
             if (!bL && !bR && !bU && !bD) {
                 myTank.setMoving(false);
             } else {
+            //设置坦克移动
                 myTank.setMoving(true);
+                //判断当前那个键盘被按下,设置坦克方向
+                if (bL) myTank.setDir(Dir.LEFT);
+                if (bR) myTank.setDir(Dir.RIGHT);
+                if (bU) myTank.setDir(Dir.UP);
+                if (bD) myTank.setDir(Dir.DOWN);
             }
-            //判断当前那个键盘被按下,设置坦克方向
-            if (bL) myTank.setDir(Dir.LEFT);
-            if (bR) myTank.setDir(Dir.RIGHT);
-            if (bU) myTank.setDir(Dir.UP);
-            if (bD) myTank.setDir(Dir.DOWN);
         }
     }
 

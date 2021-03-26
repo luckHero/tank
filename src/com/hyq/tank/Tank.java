@@ -41,6 +41,12 @@ public class Tank {
     //绘制坦克自己
     public void paint(Graphics g) {
         g.fillRect(x, y, 60, 60);//改变方块的大小
+        move();//移动的方法
+        System.out.println("坦克位置 x:" + x + ",y:" + y);
+    }
+    //坦克移动的方法
+    private void move() {
+        if(!moving)return;
         //判断键盘按下的位置,
         switch (dir) {
             case LEFT:
@@ -56,6 +62,5 @@ public class Tank {
                 y += SPEED;
                 break;
         }
-        System.out.println("坦克位置 x:" + x + ",y:" + y);
     }
 }
