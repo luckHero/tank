@@ -5,13 +5,17 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * 继承Frame类
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 200, Dir.DOWN,this);
-    Bullet bullet = new Bullet(300, 300, Dir.DOWN);
+    Tank myTank = new Tank(200, 200, Dir.DOWN, this);//坦克类
+    List<Bullet> bullets = new ArrayList<>(); //设置子弹容器
+//    Bullet bullet = new Bullet(300, 300, Dir.DOWN, this); //子弹类
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;//抽出游戏高度和宽度
 
     public TankFrame() {
@@ -31,11 +35,12 @@ public class TankFrame extends Frame {
     }
 
     /**
-     *  双缓冲概念解决屏幕闪烁
-     *  1.这里有两只画笔,一个系统创建的画笔,首先先将图片背景颜色画到内存中
-     *  2.然后利用这个
+     * 双缓冲概念解决屏幕闪烁
+     * 1.这里有两只画笔,一个系统创建的画笔,首先先将图片背景颜色画到内存中
+     * 2.然后利用这个
      */
     Image offScreenImg = null; //定义一张图片在内存中,未画出
+
     @Override
     public void update(Graphics g) {//这里是系统的画笔
         if (offScreenImg == null) {
@@ -44,10 +49,10 @@ public class TankFrame extends Frame {
         Graphics gOffScreen = offScreenImg.getGraphics();//用图片拿到画笔
         Color color = gOffScreen.getColor();//设置color
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);//绘制这个图片
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);//绘制这个图片
         gOffScreen.setColor(color);//设置回来原来的颜色
         paint(gOffScreen);
-        g.drawImage(offScreenImg,0,0,null);//将内存中的图片画到内存中
+        g.drawImage(offScreenImg, 0, 0, null);//将内存中的图片画到内存中
     }
 
     /**
@@ -57,9 +62,30 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {//这里绘制的画笔是图片的,会画到内存中
-        System.out.println("调用了paint 方法");
+//        System.out.println("调用了paint 方法");
+        Color color = g.getColor();
+        g.setColor(Color.white);
+        g.drawString("子弹的数量" + bullets.size(), 10, 60);
+        g.setColor(color);
         myTank.paint(g);//绘制坦克
-        bullet.paint(g);//绘制子弹
+        //TODO 这里有并发修改异常
+//        bullets.forEach(b -> {//画子弹
+//            b.paint(g);
+//        });
+        //TODO 解决方式一
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).paint(g);
+        }
+        //TODO解决方法二
+        Iterator<Bullet> iterator = bullets.iterator();
+        for(bullets.iterator();iterator.hasNext();){
+            Bullet bullet = iterator.next();
+            /**
+             *  成员变量被private修饰,在其他类不能不引用,那这个成员变量的在内存中是放在哪里的
+             *  为什么通过反射能够拿到类的私有成员变量
+             */
+            if(!bullet.live)  iterator.remove();
+        }
     }
 
     /**
@@ -90,10 +116,8 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN://向下
                     bD = true;
                     break;
-                case KeyEvent.VK_CONTROL: //ctrl键发射子弹
-                    myTank.fire();//发射子弹
-                    default:
-                        break;
+                default:
+                    break;
             }
             setMainTankDir();//
             //  repaint();//从新调用画布
@@ -116,9 +140,13 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN: //向上
                     bD = false;
                     break;
+                case KeyEvent.VK_CONTROL: //ctrl键发射子弹
+                    myTank.fire();//发射子弹
+                default:
+                    break;
             }
-            setMainTankDir();
-            System.out.println("键盘放开的方法....222" + keyCode);
+            setMainTankDir();//设置坦克移动方向
+         //   System.out.println("键盘放开的方法....222" + keyCode);
         }
 
         //移动主站坦克的方向

@@ -75,6 +75,6 @@ public class Tank {
         /**
          *  1.这里通过坦克类对tankFrame 这个类引用
          */
-        tankFrame.bullet = new Bullet(this.x, this.y, this.dir); //发射子弹
+        tankFrame.bullets.add(new Bullet(this.x, this.y, this.dir,this.tankFrame)) ; //发射子弹
     }
 }
