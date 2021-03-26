@@ -8,14 +8,18 @@ import java.awt.*;
  * 定义坦克类
  */
 public class Tank {
-    private int x, y;
-    private Dir dir = Dir.DOWN;
-    private static final int SPEED=10;
+    private int x, y;//坦克的x,y
+    private Dir dir = Dir.DOWN;//初始坦克方向
+    private static final int SPEED = 10;//坦克每次移动的偏移量
+    private boolean moving = false;//坦克是否移动
 
     public Tank(int x, int y, Dir dir) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+    }
+
+    public Tank() {
     }
 
     public Dir getDir() {
@@ -26,8 +30,14 @@ public class Tank {
         this.dir = dir;
     }
 
-    public Tank() {
+    public boolean isMoving() {
+        return moving;
     }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
     //绘制坦克自己
     public void paint(Graphics g) {
         g.fillRect(x, y, 60, 60);//改变方块的大小
