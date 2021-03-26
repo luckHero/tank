@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
  * 继承Frame类
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 200, Dir.DOWN);
+    Tank myTank = new Tank(200, 200, Dir.DOWN,this);
     Bullet bullet = new Bullet(300, 300, Dir.DOWN);
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;//抽出游戏高度和宽度
 
@@ -20,10 +20,8 @@ public class TankFrame extends Frame {
         setTitle("坦克大战");//设置窗口的title
         setVisible(true);//设置窗口是否可见
         // setBackground(Color.CYAN);
-        //添加键盘某个键盘监听的方法
-        this.addKeyListener(new MyListener());
-        //为当前类添加关闭窗口的监听事件,
-        addWindowListener(new WindowAdapter() {
+        this.addKeyListener(new MyListener());  //添加键盘某个键盘监听的方法
+        addWindowListener(new WindowAdapter() {  //为当前类添加关闭窗口的监听事件,
             @Override
             public void windowClosing(WindowEvent e) {
                 //当点击窗口x,jvm 退出
@@ -92,6 +90,10 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN://向下
                     bD = true;
                     break;
+                case KeyEvent.VK_CONTROL: //ctrl键发射子弹
+                    myTank.fire();//发射子弹
+                    default:
+                        break;
             }
             setMainTankDir();//
             //  repaint();//从新调用画布

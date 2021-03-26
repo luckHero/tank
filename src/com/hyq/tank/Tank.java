@@ -12,11 +12,13 @@ public class Tank {
     private Dir dir = Dir.DOWN;//初始坦克方向
     private static final int SPEED = 5;//坦克每次移动的偏移量
     private boolean moving = false;//坦克是否移动
+    private TankFrame tankFrame;
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tankFrame = tankFrame;
     }
 
 
@@ -64,5 +66,15 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+    }
+
+
+    //发射子弹
+    public void fire() {
+        //1.问题:这里的子弹画不出来 ,解决tank类需要有tankFrame 类的引用
+        /**
+         *  1.这里通过坦克类对tankFrame 这个类引用
+         */
+        tankFrame.bullet = new Bullet(this.x, this.y, this.dir); //发射子弹
     }
 }
