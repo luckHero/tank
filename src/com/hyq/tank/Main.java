@@ -9,7 +9,7 @@ public class Main {
         //创建frame类,绘制画笔
         TankFrame tankFrame = new TankFrame();
         while (true) {
-            Thread.sleep(1000);
+            Thread.sleep(500);
             tankFrame.repaint();
         }
     }

@@ -6,7 +6,7 @@ package com.hyq.tank;
  */
 
 /**
- * 定义枚举类型,上,下,左,右
+ * 定义枚举类型,上,下,左,右 用来判断坦克的方向
  */
 public enum Dir {
     UP, DOWN, LEFT, RIGHT
