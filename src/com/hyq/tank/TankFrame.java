@@ -11,13 +11,14 @@ import java.awt.event.WindowEvent;
  */
 public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 200, Dir.DOWN);
+    Bullet bullet =   new Bullet(300, 300, Dir.DOWN);
 
     public TankFrame() {
         setSize(800, 600);//设置窗口大小
         setResizable(false); //设置窗口是否可以缩放
         setTitle("坦克大战");//设置窗口的title
         setVisible(true);//设置窗口是否可见
-       // setBackground(Color.CYAN);
+        // setBackground(Color.CYAN);
         //添加键盘某个键盘监听的方法
         this.addKeyListener(new MyListener());
         //为当前类添加关闭窗口的监听事件,
@@ -29,7 +30,6 @@ public class TankFrame extends Frame {
             }
         });
     }
-
     /**
      * 绘画窗口的方法
      *
@@ -38,7 +38,8 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         System.out.println("调用了paint 方法");
-        myTank.paint(g);
+        myTank.paint(g);//绘制坦克
+        bullet.paint(g);//绘制子弹
     }
 
     /**
@@ -50,6 +51,7 @@ public class TankFrame extends Frame {
         boolean bR = false;
         boolean bU = false;
         boolean bD = false;
+
         //控制坦克方向
         @Override
         public void keyPressed(KeyEvent e) { //键盘被按下时调用
@@ -73,7 +75,7 @@ public class TankFrame extends Frame {
             //  repaint();//从新调用画布
         }
 
-       //控制键盘放开,坦克方向改变
+        //控制键盘放开,坦克方向改变
         @Override
         public void keyReleased(KeyEvent e) { //键盘被放开
             int keyCode = e.getExtendedKeyCode();
@@ -97,11 +99,10 @@ public class TankFrame extends Frame {
 
         //移动主站坦克的方向
         private void setMainTankDir() {
-            if (!bL && !bR && !bU && !bD) {
+            if (!bL && !bR && !bU && !bD) {//判断坦克是否静止
                 myTank.setMoving(false);
             } else {
-            //设置坦克移动
-                myTank.setMoving(true);
+                myTank.setMoving(true);//让坦克移动
                 //判断当前那个键盘被按下,设置坦克方向
                 if (bL) myTank.setDir(Dir.LEFT);
                 if (bR) myTank.setDir(Dir.RIGHT);

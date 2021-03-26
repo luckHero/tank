@@ -10,7 +10,7 @@ import java.awt.*;
 public class Tank {
     private int x, y;//坦克的x,y
     private Dir dir = Dir.DOWN;//初始坦克方向
-    private static final int SPEED = 10;//坦克每次移动的偏移量
+    private static final int SPEED = 5;//坦克每次移动的偏移量
     private boolean moving = false;//坦克是否移动
 
     public Tank(int x, int y, Dir dir) {
@@ -47,7 +47,7 @@ public class Tank {
     //坦克移动的方法
     private void move() {
         if(!moving)return;
-        //判断键盘按下的位置,
+        //判断坦克移动方向,向对应方向加减
         switch (dir) {
             case LEFT:
                 x -= SPEED;
