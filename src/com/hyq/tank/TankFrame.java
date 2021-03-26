@@ -6,6 +6,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * 继承Frame类,绘制画笔
+ */
 public class TankFrame extends Frame {
     int x = 200, y = 200;
 
@@ -35,12 +38,12 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         System.out.println("调用了paint 方法");
         g.fillRect(x, y, 60, 60);//改变方块的大小
-        //x += 50;
-//        y += 50;
-
     }
 
-    //处理键盘监听的方法
+    /**
+     * 创建监听键盘方向的类
+     * 重写键盘监听的方法
+     */
     class MyListener extends KeyAdapter {
         boolean bL = false;
         boolean bR = false;
@@ -75,7 +78,6 @@ public class TankFrame extends Frame {
                     break;
 
             }
-            //  x += 200;
             //  repaint();//从新调用画布
         }
 
