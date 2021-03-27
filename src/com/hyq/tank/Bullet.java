@@ -11,15 +11,15 @@ public class Bullet {
     private int x, y;
     private static int WIDTH = 30, HEIGHT = 30; //子弹的宽高
     private static final int SPEED = 6;//子弹速度
-     boolean live = true;//子弹是否还活着
+    boolean live = true;//子弹是否还活着
     private Dir dir;//子弹的方向
-    private TankFrame tankFrame=null ;
+    private TankFrame tankFrame = null;
 
     public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-      //  System.out.println(tankFrame.HEIGHT);
+        //  System.out.println(tankFrame.HEIGHT);
         this.tankFrame = tankFrame;
     }
 
@@ -28,8 +28,25 @@ public class Bullet {
         if (!live) {
             tankFrame.bullets.remove(this);
         }
-        g.setColor(Color.RED);//设置子弹颜色
-        g.fillOval(x, y, WIDTH, HEIGHT);//绘制一个矩形的内切圆
+        switch (dir) {
+            case LEFT:
+                g.drawImage(ResourceMgr.bulletL, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.bulletR, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.bulletU, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                break;
+            default:
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                break;
+        }
+//        g.setColor(Color.RED);//设置子弹颜色
+//        g.fillOval(x, y, WIDTH, HEIGHT);//绘制一个矩形的内切圆
         move();//移动的方法
     }
 
@@ -49,9 +66,9 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
-        System.out.println("x"+x+",y:"+y);
-      //  System.out.println("TankFrame.GAME_WIDTH:"+TankFrame.GAME_WIDTH +"TankFrame.HEIGHT:"+TankFrame.HEIGHT);
+        System.out.println("x" + x + ",y:" + y);
+        //  System.out.println("TankFrame.GAME_WIDTH:"+TankFrame.GAME_WIDTH +"TankFrame.HEIGHT:"+TankFrame.HEIGHT);
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) live = false;//超出范围将子弹属性设为死亡
-   //     System.out.println("子弹的属性"+live);
+        //     System.out.println("子弹的属性"+live);
     }
 }
