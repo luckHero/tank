@@ -22,10 +22,11 @@ public class ImageTest {
             //将硬盘上的内存图片,读取到内存中.....
             BufferedImage image = ImageIO.read(new File("D:\\bba09abaf3fa8cce0ad5157208b804ef.jpeg"));
             System.out.println(image);
-
+            //通过class类加载器加载classpath 下所有的图片资源
+            BufferedImage image1 = ImageIO.read(ImageTest.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
+            System.out.println(image1);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

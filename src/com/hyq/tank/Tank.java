@@ -40,10 +40,24 @@ public class Tank {
 
     //绘制坦克自己
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.yellow);
-        g.fillRect(x, y, 50, 50);//改变方块的大小
-        g.setColor(color);
+        //       Color color = g.getColor();
+//        g.setColor(Color.yellow);
+//        g.fillRect(x, y, 50, 50);//改变方块的大小
+//        g.setColor(color);
+        switch (dir) {
+            case LEFT:
+                g.drawImage(ResourceMgr.tankL, x, y, null);//画坦克图片
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.tankR, x, y, null);//画坦克图片
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.tankU, x, y, null);//画坦克图片
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.tankD, x, y, null);//画坦克图片
+                break;
+        }
         move();//移动的方法
         System.out.println("坦克位置 x:" + x + ",y:" + y);
     }
@@ -75,6 +89,6 @@ public class Tank {
         /**
          *  1.这里通过坦克类对tankFrame 这个类引用
          */
-        tankFrame.bullets.add(new Bullet(this.x, this.y, this.dir,this.tankFrame)) ; //发射子弹
+        tankFrame.bullets.add(new Bullet(this.x, this.y, this.dir, this.tankFrame)); //发射子弹
     }
 }
