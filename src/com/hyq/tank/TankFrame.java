@@ -13,7 +13,7 @@ import java.util.List;
  * 继承Frame类
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 500, Dir.UP, this);//坦克类
+    Tank myTank = new Tank(200, 500, Dir.UP, this,Group.GOOD);//坦克类
     List<Bullet> bullets = new ArrayList<>(); //设置子弹容器
     //Bullet bullet = new Bullet(300, 300, Dir.DOWN, this); //子弹类
     List<Tank> tanks = new ArrayList<>();//设置敌方坦克的容器

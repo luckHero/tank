@@ -1,6 +1,7 @@
 package com.hyq.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @author lucky
@@ -12,16 +13,19 @@ public class Tank {
     public static int WIDTH = ResourceMgr.tankD.getWidth(); //坦克的宽度
     public static int HEIGHT = ResourceMgr.tankD.getHeight();//坦克
     private Dir dir = Dir.DOWN;//初始坦克方向
-    private static final int SPEED = 5;//坦克每次移动的偏移量
-    private boolean moving = false;//坦克是否移动
+    private static final int SPEED = 1;//坦克每次移动的偏移量
+    private boolean moving = true;//坦克是否移动
     private boolean living = true;//坦克是否存活
     private TankFrame tankFrame = null;
+    private Group group = Group.BAD; //坦克的属性
+    private Random random = new Random();
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tankFrame = tankFrame;
+        this.group = group;
     }
 
     //绘制坦克自己
@@ -46,7 +50,7 @@ public class Tank {
     }
 
     //坦克移动的方法
-    private void move() {
+    private void move()  {
         if (!moving) return;
         //判断坦克移动方向,向对应方向加减
         switch (dir) {
@@ -63,6 +67,7 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+        if (random.nextInt() > 7) this.fire();//让坦克移动的时候随机发射子弹
     }
 
     //发射子弹
@@ -73,9 +78,13 @@ public class Tank {
          */
         int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2; //调整子弹的宽度
         int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGH / 2; //调整子弹的高度
-        tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.tankFrame)); //发射子弹
+        tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.tankFrame, this.group)); //发射子弹
     }
 
+    //坦克死亡的方法
+    public void die() {
+        this.living = false;
+    }
 
     public int getX() {
         return x;
@@ -108,8 +117,12 @@ public class Tank {
     public void setMoving(boolean moving) {
         this.moving = moving;
     }
-    //坦克死亡的方法
-    public void die() {
-        this.living=false;
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

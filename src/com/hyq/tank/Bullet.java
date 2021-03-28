@@ -15,13 +15,14 @@ public class Bullet {
     boolean living = true;//子弹是否还活着
     private Dir dir;//子弹的方向
     private TankFrame tankFrame = null;
-
-    public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
+    private Group group=Group.BAD;
+    public Bullet(int x, int y, Dir dir, TankFrame tankFrame,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         //  System.out.println(tankFrame.HEIGHT);
         this.tankFrame = tankFrame;
+        this.group = group;
     }
 
     //绘制子弹的方法
@@ -73,16 +74,25 @@ public class Bullet {
     }
     //子弹和坦克进行碰撞检测
     public void collideWith(Tank tank) {
+        if(this.group==tank.getGroup())return; //判断子弹的group 和坦克的group
+        //TODO 用一个rect 记录自己的位置
         Rectangle bulletRect=new Rectangle(this.x,this.y,WIDTH,HEIGH); //子弹的矩形
         Rectangle tankRect=new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT); //坦克的矩形
-        if(bulletRect.intersects(tankRect)){
-            tank.die();
-            this.die();
+        if(bulletRect.intersects(tankRect)){ //判断子弹是否与坦克相交
+            tank.die();//坦克死亡
+            this.die();//子弹死亡
         }
-
     }
     //子弹死亡的方法
     private void die() {
         this.living=false;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }
