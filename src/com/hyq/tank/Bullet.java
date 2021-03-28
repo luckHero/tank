@@ -12,7 +12,7 @@ public class Bullet {
     public static int WIDTH = ResourceMgr.bulletD.getWidth(); //子弹的宽度
     public static int HEIGH = ResourceMgr.bulletD.getHeight();//子弹的高度
     private static final int SPEED = 6;//子弹速度
-    boolean live = true;//子弹是否还活着
+    boolean living = true;//子弹是否还活着
     private Dir dir;//子弹的方向
     private TankFrame tankFrame = null;
 
@@ -26,7 +26,7 @@ public class Bullet {
 
     //绘制子弹的方法
     public void paint(Graphics g) {
-        if (!live) {
+        if (!living) {
             tankFrame.bullets.remove(this);
         }
         switch (dir) {
@@ -67,8 +67,22 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
-        System.out.println("x" + x + ",y:" + y);
+        System.out.println("子弹x:" + x + ",子弹y:" + y);
         //  System.out.println("TankFrame.GAME_WIDTH:"+TankFrame.GAME_WIDTH +"TankFrame.HEIGHT:"+TankFrame.HEIGHT);
-        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) live = false;//超出范围将子弹属性设为死亡
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;//超出范围将子弹属性设为死亡
+    }
+    //子弹和坦克进行碰撞检测
+    public void collideWith(Tank tank) {
+        Rectangle bulletRect=new Rectangle(this.x,this.y,WIDTH,HEIGH); //子弹的矩形
+        Rectangle tankRect=new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT); //坦克的矩形
+        if(bulletRect.intersects(tankRect)){
+            tank.die();
+            this.die();
+        }
+
+    }
+    //子弹死亡的方法
+    private void die() {
+        this.living=false;
     }
 }

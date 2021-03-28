@@ -13,12 +13,13 @@ import java.util.List;
  * 继承Frame类
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 600, Dir.DOWN, this);//坦克类
+    Tank myTank = new Tank(200, 500, Dir.UP, this);//坦克类
     List<Bullet> bullets = new ArrayList<>(); //设置子弹容器
     //Bullet bullet = new Bullet(300, 300, Dir.DOWN, this); //子弹类
-    List<Tank> tanks = new ArrayList<>() ;//设置敌方坦克的容器
+    List<Tank> tanks = new ArrayList<>();//设置敌方坦克的容器
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;//游戏高度和宽度
 
+    //tankFrame的空参构造,用来创建窗口类的
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);//设置窗口大小
         setResizable(false); //设置窗口是否可以缩放
@@ -69,7 +70,6 @@ public class TankFrame extends Frame {
         g.drawString("坦克的数量:" + tanks.size(), 10, 80);
         g.setColor(color);
         myTank.paint(g);//绘制坦克
-
         //TODO 这里有并发修改异常
 //        bullets.forEach(b -> {//画子弹
 //            b.paint(g);
@@ -79,21 +79,26 @@ public class TankFrame extends Frame {
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
-
-
         //TODO解决方法二  绘画子弹的方法
 //        Iterator<Bullet> iterator = bullets.iterator();
 //        for (bullets.iterator(); iterator.hasNext(); ) {
 //            Bullet bullet = iterator.next();
-        //绘画坦克
+        //绘画敌人坦克
         for (int i = 0; i < tanks.size(); i++) {
             tanks.get(i).paint(g);
+        }
+
+        //碰撞检测等方法
+        for (int i = 0; i < bullets.size(); i++) {
+            for (int j = 0; j < tanks.size(); j++) {
+                bullets.get(i).collideWith(tanks.get(j));
+            }
         }
 //            /**
 //             *  成员变量被private修饰,在其他类不能不引用,那这个成员变量的在内存中是放在哪里的
 //             *  为什么通过反射能够拿到类的私有成员变量
 //             */
-//            if (!bullet.live) iterator.remove();
+//            if (!bullet.living) iterator.remove();
 //        }
     }
 

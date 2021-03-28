@@ -14,6 +14,7 @@ public class Tank {
     private Dir dir = Dir.DOWN;//初始坦克方向
     private static final int SPEED = 5;//坦克每次移动的偏移量
     private boolean moving = false;//坦克是否移动
+    private boolean living = true;//坦克是否存活
     private TankFrame tankFrame = null;
 
     public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
@@ -25,6 +26,7 @@ public class Tank {
 
     //绘制坦克自己
     public void paint(Graphics g) {
+        if (!living) tankFrame.tanks.remove(this);//坦克是否存活
         switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.tankL, x, y, null);//画坦克图片
@@ -105,5 +107,9 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+    //坦克死亡的方法
+    public void die() {
+        this.living=false;
     }
 }
