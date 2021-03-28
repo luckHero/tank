@@ -13,10 +13,11 @@ import java.util.List;
  * 继承Frame类
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 200, Dir.DOWN, this);//坦克类
+    Tank myTank = new Tank(200, 600, Dir.DOWN, this);//坦克类
     List<Bullet> bullets = new ArrayList<>(); //设置子弹容器
-//    Bullet bullet = new Bullet(300, 300, Dir.DOWN, this); //子弹类
-    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;//抽出游戏高度和宽度
+    //Bullet bullet = new Bullet(300, 300, Dir.DOWN, this); //子弹类
+    List<Tank> tanks = new ArrayList<>() ;//设置敌方坦克的容器
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;//游戏高度和宽度
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);//设置窗口大小
@@ -62,30 +63,38 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {//这里绘制的画笔是图片的,会画到内存中
-//        System.out.println("调用了paint 方法");
         Color color = g.getColor();
         g.setColor(Color.white);
-        g.drawString("子弹的数量" + bullets.size(), 10, 60);
+        g.drawString("子弹的数量:" + bullets.size(), 10, 60);
+        g.drawString("坦克的数量:" + tanks.size(), 10, 80);
         g.setColor(color);
         myTank.paint(g);//绘制坦克
+
         //TODO 这里有并发修改异常
 //        bullets.forEach(b -> {//画子弹
 //            b.paint(g);
 //        });
         //TODO 解决方式一
+        //绘画子弹的方法
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
-        //TODO解决方法二
-        Iterator<Bullet> iterator = bullets.iterator();
-        for(bullets.iterator();iterator.hasNext();){
-            Bullet bullet = iterator.next();
-            /**
-             *  成员变量被private修饰,在其他类不能不引用,那这个成员变量的在内存中是放在哪里的
-             *  为什么通过反射能够拿到类的私有成员变量
-             */
-            if(!bullet.live)  iterator.remove();
+
+
+        //TODO解决方法二  绘画子弹的方法
+//        Iterator<Bullet> iterator = bullets.iterator();
+//        for (bullets.iterator(); iterator.hasNext(); ) {
+//            Bullet bullet = iterator.next();
+        //绘画坦克
+        for (int i = 0; i < tanks.size(); i++) {
+            tanks.get(i).paint(g);
         }
+//            /**
+//             *  成员变量被private修饰,在其他类不能不引用,那这个成员变量的在内存中是放在哪里的
+//             *  为什么通过反射能够拿到类的私有成员变量
+//             */
+//            if (!bullet.live) iterator.remove();
+//        }
     }
 
     /**
@@ -146,7 +155,7 @@ public class TankFrame extends Frame {
                     break;
             }
             setMainTankDir();//设置坦克移动方向
-         //   System.out.println("键盘放开的方法....222" + keyCode);
+            //   System.out.println("键盘放开的方法....222" + keyCode);
         }
 
         //移动主站坦克的方向

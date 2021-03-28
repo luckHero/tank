@@ -9,7 +9,8 @@ import java.awt.*;
  */
 public class Bullet {
     private int x, y;
-    private static int WIDTH = 30, HEIGHT = 30; //子弹的宽高
+    public static int WIDTH = ResourceMgr.bulletD.getWidth(); //子弹的宽度
+    public static int HEIGH = ResourceMgr.bulletD.getHeight();//子弹的高度
     private static final int SPEED = 6;//子弹速度
     boolean live = true;//子弹是否还活着
     private Dir dir;//子弹的方向
@@ -69,6 +70,5 @@ public class Bullet {
         System.out.println("x" + x + ",y:" + y);
         //  System.out.println("TankFrame.GAME_WIDTH:"+TankFrame.GAME_WIDTH +"TankFrame.HEIGHT:"+TankFrame.HEIGHT);
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) live = false;//超出范围将子弹属性设为死亡
-        //     System.out.println("子弹的属性"+live);
     }
 }
