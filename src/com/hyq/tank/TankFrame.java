@@ -18,6 +18,7 @@ public class TankFrame extends Frame {
     //Bullet bullet = new Bullet(300, 300, Dir.DOWN, this); //子弹类
     List<Tank> tanks = new ArrayList<>();//设置敌方坦克的容器
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;//游戏高度和宽度
+    Explode e=new Explode(100,100,this);
 
     //tankFrame的空参构造,用来创建窗口类的
     public TankFrame() {
@@ -94,6 +95,7 @@ public class TankFrame extends Frame {
                 bullets.get(i).collideWith(tanks.get(j));
             }
         }
+        e.paint(g);
 //            /**
 //             *  成员变量被private修饰,在其他类不能不引用,那这个成员变量的在内存中是放在哪里的
 //             *  为什么通过反射能够拿到类的私有成员变量
