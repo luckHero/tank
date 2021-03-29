@@ -10,8 +10,8 @@ import java.util.Random;
  */
 public class Tank {
     private int x, y;
-    public static int WIDTH = ResourceMgr.tankD.getWidth(); //坦克的宽度
-    public static int HEIGHT = ResourceMgr.tankD.getHeight();//坦克
+    public static int WIDTH = ResourceMgr.goodTankU.getWidth(); //坦克的宽度
+    public static int HEIGHT = ResourceMgr.goodTankU.getHeight();//坦克
     private Dir dir = Dir.DOWN;//初始坦克方向
     private static final int SPEED = 4;//坦克每次移动的偏移量
     private boolean moving = true;//坦克是否移动
@@ -31,18 +31,20 @@ public class Tank {
     //绘制坦克自己
     public void paint(Graphics g) {
         if (!living) tankFrame.tanks.remove(this);//坦克是否存活
+
+
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, x, y, null);//画坦克图片
+                g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankL:ResourceMgr.badTankL, x, y, null);//画坦克图片
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, x, y, null);//画坦克图片
+                g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankR:ResourceMgr.badTankR, x, y, null);//画坦克图片
                 break;
             case UP:
-                g.drawImage(ResourceMgr.tankU, x, y, null);//画坦克图片
+                g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankU:ResourceMgr.badTankU, x, y, null);//画坦克图片
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, x, y, null);//画坦克图片
+                g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankD:ResourceMgr.badTankD, x, y, null);//画坦克图片
                 break;
         }
         move();//移动的方法
