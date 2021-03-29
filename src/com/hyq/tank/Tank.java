@@ -71,6 +71,14 @@ public class Tank {
             this.fire();//让坦克移动的时候随机发射子弹
         }
         if (this.group == Group.BAD && random.nextInt(100) > 85) randomDir(); //随机改变方向
+        broundCheck();//碰撞检测
+    }
+    //碰撞检测的方法
+    private void broundCheck() {
+        if(this.x<0)x=0; //判断坦克是否超出游戏的宽度
+        else if(this.y<30)y=30;
+        else if(this.x>TankFrame.GAME_WIDTH-Tank.WIDTH)x=TankFrame.GAME_WIDTH-Tank.WIDTH;
+        else if(this.y>TankFrame.GAME_HEIGHT-Tank.HEIGHT)y=TankFrame.GAME_HEIGHT-Tank.HEIGHT;
     }
 
     private void randomDir() {
