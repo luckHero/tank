@@ -16,14 +16,18 @@ public class Bullet {
     private Dir dir;//子弹的方向
     private TankFrame tankFrame = null;
     private Group group = Group.BAD;
+    Rectangle rectangle = new Rectangle();//计算坦克图片矩形的类
 
     public Bullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        //  System.out.println(tankFrame.HEIGHT);
         this.tankFrame = tankFrame;
         this.group = group;
+        rectangle.x=this.x;
+        rectangle.y=this.y;
+        rectangle.width=WIDTH;
+        rectangle.height=HEIGH;
     }
 
     //绘制子弹的方法
@@ -69,6 +73,8 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
+        rectangle.x=this.x;
+        rectangle.y=this.y;
         System.out.println("子弹x:" + x + ",子弹y:" + y);
         //  System.out.println("TankFrame.GAME_WIDTH:"+TankFrame.GAME_WIDTH +"TankFrame.HEIGHT:"+TankFrame.HEIGHT);
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;//超出范围将子弹属性设为死亡
@@ -77,10 +83,10 @@ public class Bullet {
     //子弹和坦克进行碰撞检测
     public void collideWith(Tank tank) {
         if (this.group == tank.getGroup()) return; //判断子弹的group 和坦克的group
-        //TODO 用一个rect 记录自己的位置
-        Rectangle bulletRect = new Rectangle(this.x, this.y, WIDTH, HEIGH); //子弹的矩形
-        Rectangle tankRect = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT); //坦克的矩形
-        if (bulletRect.intersects(tankRect)) { //判断子弹是否与坦克相交
+        //TODO 用一个rect 记录自己的位置 ,这里需要优化 每次子弹都会和坦克进行碰撞
+//        Rectangle bulletRect = new Rectangle(this.x, this.y, WIDTH, HEIGH); //子弹的矩形
+//        Rectangle tankRect = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT); //坦克的矩形
+        if (rectangle.intersects(tank.rectangle)) { //判断子弹是否与坦克相交
             tank.die();//坦克死亡
             this.die();//子弹死亡
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;

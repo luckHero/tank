@@ -19,6 +19,7 @@ public class Tank {
     private TankFrame tankFrame = null;
     private Group group = Group.BAD; //坦克的属性
     private Random random = new Random();
+    Rectangle rectangle = new Rectangle();
 
     public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
@@ -26,6 +27,10 @@ public class Tank {
         this.dir = dir;
         this.tankFrame = tankFrame;
         this.group = group;
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     //绘制坦克自己
@@ -67,11 +72,15 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+
         if (this.group == Group.BAD && random.nextInt(100) > 95) {//判断坦克的属性,坏坦克随机发射子弹
             this.fire();//让坦克移动的时候随机发射子弹
         }
         if (this.group == Group.BAD && random.nextInt(100) > 85) randomDir(); //随机改变方向
         broundCheck();//碰撞检测
+        //碰撞检测完城后更新子弹的矩形
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
     //碰撞检测的方法
