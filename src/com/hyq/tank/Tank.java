@@ -13,7 +13,7 @@ public class Tank {
     public static int WIDTH = ResourceMgr.tankD.getWidth(); //坦克的宽度
     public static int HEIGHT = ResourceMgr.tankD.getHeight();//坦克
     private Dir dir = Dir.DOWN;//初始坦克方向
-    private static final int SPEED = 1;//坦克每次移动的偏移量
+    private static final int SPEED = 4;//坦克每次移动的偏移量
     private boolean moving = true;//坦克是否移动
     private boolean living = true;//坦克是否存活
     private TankFrame tankFrame = null;
