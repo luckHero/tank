@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * @author lucky
  * @date 2021/3/28 17:43
- * 爆炸的类
+ * 爆炸类
  */
 public class Explode {
     public  static int WIDTH=ResourceMgr.explodes[0].getWidth();//爆炸的宽度

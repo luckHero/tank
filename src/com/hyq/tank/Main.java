@@ -12,6 +12,7 @@ public class Main {
         for (int i = 0; i < 5; i++) {
             tankFrame.tanks.add(new Tank(60 + i * 100, 200, Dir.DOWN, tankFrame,Group.BAD));
         }
+       // new Thread(()->new Audio(("audio/war1.wav")).loop()).start(); //开启另外一个线程开启音效
         while (true) {
             Thread.sleep(50);
             tankFrame.repaint();
