@@ -81,7 +81,9 @@ public class Bullet {
         if(bulletRect.intersects(tankRect)){ //判断子弹是否与坦克相交
             tank.die();//坦克死亡
             this.die();//子弹死亡
-            tankFrame.explodes.add(new Explode(x,y,tankFrame));
+            int eX=tank.getX()+Tank.WIDTH/2-Explode.WIDTH/2;
+            int eY=tank.getY()+Tank.HEIGHT/2-Explode.HEIGHT/2;
+            tankFrame.explodes.add(new Explode(eX,eY,tankFrame));
         }
     }
     //子弹死亡的方法
