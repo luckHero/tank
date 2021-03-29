@@ -13,11 +13,11 @@ import java.util.List;
  * 继承Frame类,窗口类
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 500, Dir.UP, this,Group.GOOD);//坦克类
+    Tank myTank = new Tank(200, 500, Dir.UP, this, Group.GOOD);//坦克类
     List<Bullet> bullets = new ArrayList<>(); //设置子弹容器
     //Bullet bullet = new Bullet(300, 300, Dir.DOWN, this); //子弹类
     List<Tank> tanks = new ArrayList<>();//设置敌方坦克的容器
-    List<Explode> explodes=new ArrayList<>();//爆炸的集合
+    List<Explode> explodes = new ArrayList<>();//爆炸的集合
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;//游戏高度和宽度
 //    Explode e=new Explode(100,100,this); //画一个爆炸的效果
 
@@ -170,6 +170,7 @@ public class TankFrame extends Frame {
             //   System.out.println("键盘放开的方法....222" + keyCode);
         }
 
+        //TODO 有bug,主站坦克会不受控制随意移动
         //移动主站坦克的方向
         private void setMainTankDir() {
             if (!bL && !bR && !bU && !bD) {//判断坦克是否静止
