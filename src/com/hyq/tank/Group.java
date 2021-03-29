@@ -6,5 +6,5 @@ package com.hyq.tank;
  * 坦克的属性
  */
 public enum Group {
-    GOOD,BAD
+    GOOD, BAD
 }

@@ -31,20 +31,18 @@ public class Tank {
     //绘制坦克自己
     public void paint(Graphics g) {
         if (!living) tankFrame.tanks.remove(this);//坦克是否存活
-
-
         switch (dir) {
             case LEFT:
-                g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankL:ResourceMgr.badTankL, x, y, null);//画坦克图片
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);//判断坦克的属性,画坦克图片
                 break;
             case RIGHT:
-                g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankR:ResourceMgr.badTankR, x, y, null);//画坦克图片
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);//画坦克图片
                 break;
             case UP:
-                g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankU:ResourceMgr.badTankU, x, y, null);//画坦克图片
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);//画坦克图片
                 break;
             case DOWN:
-                g.drawImage(this.group==Group.GOOD?ResourceMgr.goodTankD:ResourceMgr.badTankD, x, y, null);//画坦克图片
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);//画坦克图片
                 break;
         }
         move();//移动的方法

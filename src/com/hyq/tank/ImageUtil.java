@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ImageUtil {
-	public static BufferedImage rotateImage(final BufferedImage bufferedimage,
-            final int degree) {
+    public static BufferedImage rotateImage(final BufferedImage bufferedimage,
+                                            final int degree) {
         int w = bufferedimage.getWidth();
         int h = bufferedimage.getHeight();
         int type = bufferedimage.getColorModel().getTransparency();
