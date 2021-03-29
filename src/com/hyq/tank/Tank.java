@@ -50,7 +50,7 @@ public class Tank {
     }
 
     //坦克移动的方法
-    private void move()  {
+    private void move() {
         if (!moving) return;
         //判断坦克移动方向,向对应方向加减
         switch (dir) {
@@ -67,14 +67,14 @@ public class Tank {
                 y += SPEED;
                 break;
         }
-        if (this.group==Group.BAD && random.nextInt(100) > 95){//判断坦克的属性,坏坦克随机发射子弹
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {//判断坦克的属性,坏坦克随机发射子弹
             this.fire();//让坦克移动的时候随机发射子弹
         }
-        if(this.group==Group.BAD&&random.nextInt(100)>85)randomDir(); //随机改变方向
+        if (this.group == Group.BAD && random.nextInt(100) > 85) randomDir(); //随机改变方向
     }
 
     private void randomDir() {
-      this.dir=Dir.values() [random.nextInt(4)] ;//Dir.values()获取dir的所有值 随机取值
+        this.dir = Dir.values()[random.nextInt(4)];//Dir.values()获取dir的所有值 随机取值
     }
 
     //发射子弹

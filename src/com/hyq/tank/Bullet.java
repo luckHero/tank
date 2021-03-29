@@ -15,8 +15,9 @@ public class Bullet {
     boolean living = true;//子弹是否还活着
     private Dir dir;//子弹的方向
     private TankFrame tankFrame = null;
-    private Group group=Group.BAD;
-    public Bullet(int x, int y, Dir dir, TankFrame tankFrame,Group group) {
+    private Group group = Group.BAD;
+
+    public Bullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -72,23 +73,25 @@ public class Bullet {
         //  System.out.println("TankFrame.GAME_WIDTH:"+TankFrame.GAME_WIDTH +"TankFrame.HEIGHT:"+TankFrame.HEIGHT);
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;//超出范围将子弹属性设为死亡
     }
+
     //子弹和坦克进行碰撞检测
     public void collideWith(Tank tank) {
-        if(this.group==tank.getGroup())return; //判断子弹的group 和坦克的group
+        if (this.group == tank.getGroup()) return; //判断子弹的group 和坦克的group
         //TODO 用一个rect 记录自己的位置
-        Rectangle bulletRect=new Rectangle(this.x,this.y,WIDTH,HEIGH); //子弹的矩形
-        Rectangle tankRect=new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT); //坦克的矩形
-        if(bulletRect.intersects(tankRect)){ //判断子弹是否与坦克相交
+        Rectangle bulletRect = new Rectangle(this.x, this.y, WIDTH, HEIGH); //子弹的矩形
+        Rectangle tankRect = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT); //坦克的矩形
+        if (bulletRect.intersects(tankRect)) { //判断子弹是否与坦克相交
             tank.die();//坦克死亡
             this.die();//子弹死亡
-            int eX=tank.getX()+Tank.WIDTH/2-Explode.WIDTH/2;
-            int eY=tank.getY()+Tank.HEIGHT/2-Explode.HEIGHT/2;
-            tankFrame.explodes.add(new Explode(eX,eY,tankFrame));
+            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+            tankFrame.explodes.add(new Explode(eX, eY, tankFrame));
         }
     }
+
     //子弹死亡的方法
     private void die() {
-        this.living=false;
+        this.living = false;
     }
 
     public Group getGroup() {
