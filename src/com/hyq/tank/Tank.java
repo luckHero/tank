@@ -9,6 +9,9 @@ import java.util.Random;
  * 定义坦克类
  */
 public class Tank {
+    {
+        System.out.println("非静态代码块.......");
+    }
     private int x, y;
     public static int WIDTH = ResourceMgr.goodTankU.getWidth(); //坦克的宽度
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();//坦克
@@ -51,6 +54,7 @@ public class Tank {
                 break;
         }
         move();//移动的方法
+
         System.out.println("坦克位置 x:" + x + ",y:" + y);
     }
 
@@ -58,6 +62,7 @@ public class Tank {
     private void move() {
         if (!moving) return;
         //判断坦克移动方向,向对应方向加减
+//        new Thread(()->new Audio(("audio/war1.wav")).loop()).start();
         switch (dir) {
             case LEFT:
                 x -= SPEED;
