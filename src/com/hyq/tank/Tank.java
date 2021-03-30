@@ -12,6 +12,7 @@ public class Tank {
     {
         System.out.println("非静态代码块.......");
     }
+
     private int x, y;
     public static int WIDTH = ResourceMgr.goodTankU.getWidth(); //坦克的宽度
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();//坦克
@@ -108,6 +109,19 @@ public class Tank {
          */
         int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2; //调整子弹的宽度
         int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGH / 2; //调整子弹的高度
+//        System.out.println("232323"+Thread.currentThread().getName());
+        if (this.group == Group.GOOD) {
+            //TODO 这里new 出来的线程什么时候停止,还是一直继续运行
+             new Thread(() -> {
+                 new Audio(("audio/tank_fire.wav")).play();
+             }).start();
+//            try {
+//                Thread.sleep(60);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            thread.stop();
+        }
         tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.tankFrame, this.group)); //发射子弹
     }
 

@@ -6,9 +6,10 @@ import java.awt.event.WindowEvent;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+    //    Manager01 manager01 = new Manager01();
         //创建frame类,绘制画笔
         TankFrame tankFrame = new TankFrame();
-        int initTankCount=Integer.parseInt(String.valueOf(PropertyMgr.get("initTankCount")));
+        int initTankCount = Integer.parseInt(String.valueOf(PropertyMgr.get("initTankCount")));
         //初始化坦克
         for (int i = 0; i < initTankCount; i++) {
             tankFrame.tanks.add(new Tank(60 + i * 100, 200, Dir.DOWN, tankFrame, Group.BAD));
