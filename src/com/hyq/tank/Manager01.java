@@ -16,12 +16,17 @@ public class Manager01 {
     private Manager01() { }
 
     private static Manager01 getInstance() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return Instance;
     }
 
     public static void main(String[] args) {
-        Manager01 manager01 = Manager01.getInstance();
-        Manager01 manager02 = Manager01.getInstance();
-        System.out.println(manager01 == manager02);
+        for (int i = 0; i <1000 ; i++) {
+            new Thread(()-> System.out.println(Manager01.getInstance().hashCode())).start();
+        }
     }
 }
