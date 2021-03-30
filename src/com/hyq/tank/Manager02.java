@@ -19,12 +19,14 @@ public class Manager02 {
             //TODO 会存在线程安全问题
             //TODO 这里加载的还是不能保证线程安全,因为在if判断后,还是会被其他线程去执行下面加锁的代码的
             synchronized (Manager02.class) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (Instance == null) {
+                    try {
+                        Thread.sleep(100);//模拟并发操作
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return Instance = new Manager02();
                 }
-                return Instance = new Manager02();
             }
         }
         return Instance;
