@@ -21,7 +21,9 @@ public class Manager03 {
         return Manager03Holder.Instance;
     }
 
-    public void m(){}
+    public void m() {
+    }
+
     public static void main(String[] args) {
         for (int i = 0; i < 100; i++) {
             new Thread(() -> System.out.println(Manager03.getInstance().hashCode())).start();

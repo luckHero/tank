@@ -13,7 +13,8 @@ package com.hyq.tank;
 public class Manager01 {
     private static Manager01 Instance = new Manager01();
 
-    private Manager01() { }
+    private Manager01() {
+    }
 
     private static Manager01 getInstance() {
         try {
@@ -25,8 +26,8 @@ public class Manager01 {
     }
 
     public static void main(String[] args) {
-        for (int i = 0; i <1000 ; i++) {
-            new Thread(()-> System.out.println(Manager01.getInstance().hashCode())).start();
+        for (int i = 0; i < 1000; i++) {
+            new Thread(() -> System.out.println(Manager01.getInstance().hashCode())).start();
         }
     }
 }
