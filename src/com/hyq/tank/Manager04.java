@@ -1,0 +1,21 @@
+package com.hyq.tank;
+
+/**
+ * @author lucky
+ * @date 2021/3/31 8:19
+ * 通过枚举来解决线程安全问题,还可以解决反序列化的问题
+ * 序列化:讲一个对象转换成二进制数组
+ * 反序列化:将一个二进制的数组转换成对对象
+ */
+public enum Manager04 {
+    INSTANCE;
+
+    public void m() {
+    }
+
+    public static void main(String[] args) {
+        for (int i = 0; i < 100; i++) {
+            new Thread(() -> System.out.println(Manager04.INSTANCE.hashCode())).start();
+        }
+    }
+}
