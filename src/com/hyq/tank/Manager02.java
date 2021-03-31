@@ -9,7 +9,7 @@ package com.hyq.tank;
  * 懒汉式的单列模式,存在线程安全问题
  */
 public class Manager02 {
-    private static Manager02 Instance = null;
+    private static volatile Manager02 Instance = null;
 
     private Manager02() {
     }

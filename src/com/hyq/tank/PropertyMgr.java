@@ -10,6 +10,19 @@ import java.util.Properties;
 public class PropertyMgr {
     static Properties properties = new Properties();
 
+    private static PropertyMgr Instance = new PropertyMgr();
+
+    private PropertyMgr() {
+    }
+
+    public static class PropertyMgrHolder {
+        private static PropertyMgr Instance = new PropertyMgr();
+    }
+
+    public static PropertyMgr getInstance() {
+        return PropertyMgrHolder.Instance;
+    }
+
     static {
         try {
             properties.load(PropertyMgr.class.getClassLoader().getResourceAsStream("config"));
@@ -18,6 +31,7 @@ public class PropertyMgr {
         }
 
     }
+
     //读取配置文件
     public static Object get(String key) {
         if (properties == null) {

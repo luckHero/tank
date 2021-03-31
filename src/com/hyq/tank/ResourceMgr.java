@@ -16,6 +16,10 @@ public class ResourceMgr {
     public static BufferedImage bulletL, bulletR, bulletU, bulletD;//子弹图片
     public static BufferedImage[] explodes = new BufferedImage[16];//爆炸的图片
 
+    private ResourceMgr() {
+    }
+
+
     static {
         try {
             goodTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
