@@ -10,7 +10,7 @@ package com.hyq.tank;
  * 于是将default Fire Strategy 设置成单列
  */
 public class DefaultFireStrategy implements FireStrategy {
-    private static DefaultFireStrategy Instance = new DefaultFireStrategy();
+    private static DefaultFireStrategy Instance = null;
 
     /**
      * 将构造方法私有
@@ -19,11 +19,19 @@ public class DefaultFireStrategy implements FireStrategy {
     }
 
     /**
-     * 饿汉模式的单例
+     * 懒汉模式的单例
+     * 双重判断解决线程安全问题
      *
      * @return
      */
     public static DefaultFireStrategy getInstance() {
+        if (Instance == null) {
+            synchronized (DefaultFireStrategy.class) {
+                if (Instance == null) {
+                    return Instance = new DefaultFireStrategy();
+                }
+            }
+        }
         return Instance;
     }
 

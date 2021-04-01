@@ -1,4 +1,4 @@
-package com.hyq.tank;
+package com.hyq.singleton;
 
 /**
  * @author lucky
