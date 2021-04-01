@@ -24,10 +24,11 @@ public class Bullet {
         this.dir = dir;
         this.tankFrame = tankFrame;
         this.group = group;
-        rectangle.x=this.x;
-        rectangle.y=this.y;
-        rectangle.width=WIDTH;
-        rectangle.height=HEIGH;
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGH;
+        tankFrame.bullets.add(this);
     }
 
     //绘制子弹的方法
@@ -73,8 +74,8 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
-        rectangle.x=this.x;
-        rectangle.y=this.y;
+        rectangle.x = this.x;
+        rectangle.y = this.y;
         System.out.println("子弹x:" + x + ",子弹y:" + y);
         //  System.out.println("TankFrame.GAME_WIDTH:"+TankFrame.GAME_WIDTH +"TankFrame.HEIGHT:"+TankFrame.HEIGHT);
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;//超出范围将子弹属性设为死亡

@@ -162,7 +162,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL: //ctrl键发射子弹
-                    myTank.fire();//发射子弹
+                    myTank.fire(DefaultFireStrategy.getInstance());//发射子弹
                 default:
                     break;
             }

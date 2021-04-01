@@ -13,14 +13,14 @@ public class Tank {
         System.out.println("非静态代码块.......");
     }
 
-    private int x, y;
+    int x, y;
     public static int WIDTH = ResourceMgr.goodTankU.getWidth(); //坦克的宽度
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();//坦克
     private Dir dir = Dir.DOWN;//初始坦克方向
     private static final int SPEED = 4;//坦克每次移动的偏移量
     private boolean moving = true;//坦克是否移动
     private boolean living = true;//坦克是否存活
-    private TankFrame tankFrame = null;
+    TankFrame tankFrame = null;
     private Group group = Group.BAD; //坦克的属性
     private Random random = new Random();
     Rectangle rectangle = new Rectangle();
@@ -80,7 +80,8 @@ public class Tank {
         }
 
         if (this.group == Group.BAD && random.nextInt(100) > 95) {//判断坦克的属性,坏坦克随机发射子弹
-            this.fire();//让坦克移动的时候随机发射子弹
+            DefaultFireStrategy defaultFireStrategy = DefaultFireStrategy.getInstance();
+            this.fire(defaultFireStrategy);//让坦克移动的时候随机发射子弹
         }
         if (this.group == Group.BAD && random.nextInt(100) > 85) randomDir(); //随机改变方向
         broundCheck();//碰撞检测
@@ -102,27 +103,12 @@ public class Tank {
     }
 
     //发射子弹
-    public void fire() {
+    public void fire(FireStrategy fireStrategy) {
         //1.问题:这里的子弹画不出来 ,解决tank类需要有tankFrame 类的引用
         /**
          *  1.这里通过坦克类对tankFrame 这个类引用
          */
-        int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2; //调整子弹的宽度
-        int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGH / 2; //调整子弹的高度
-//        System.out.println("232323"+Thread.currentThread().getName());
-        if (this.group == Group.GOOD) {
-            //TODO 这里new 出来的线程什么时候停止,还是一直继续运行
-             new Thread(() -> {
-                 new Audio(("audio/tank_fire.wav")).play();
-             }).start();
-//            try {
-//                Thread.sleep(60);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            thread.stop();
-        }
-        tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.tankFrame, this.group)); //发射子弹
+        fireStrategy.fire(this);
     }
 
     //坦克死亡的方法

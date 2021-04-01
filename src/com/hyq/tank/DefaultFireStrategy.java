@@ -1,0 +1,49 @@
+package com.hyq.tank;
+
+/**
+ * @author lucky
+ * @date 2021/4/1 8:12
+ */
+
+/**
+ * 策略设计模式,将坦克的发射子弹的数量需要传递策略实现
+ * 于是将default Fire Strategy 设置成单列
+ */
+public class DefaultFireStrategy implements FireStrategy {
+    private static DefaultFireStrategy Instance = new DefaultFireStrategy();
+
+    /**
+     * 将构造方法私有
+     */
+    private DefaultFireStrategy() {
+    }
+
+    /**
+     * 饿汉模式的单例
+     *
+     * @return
+     */
+    public static DefaultFireStrategy getInstance() {
+        return Instance;
+    }
+
+    @Override
+    public void fire(Tank tank) {
+        int bx = tank.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2; //调整子弹的宽度
+        int by = tank.y + Tank.HEIGHT / 2 - Bullet.HEIGH / 2; //调整子弹的高度
+        if (tank.getGroup() == Group.GOOD) {
+            //TODO 这里new 出来的线程什么时候停止,还是一直继续运行
+            new Thread(() -> {
+                new Audio(("audio/tank_fire.wav")).play();
+            }).start();
+//            try {
+//                Thread.sleep(60);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            thread.stop();
+        }
+        //new 出来子弹后,直接 通过构造方法加入到tankFrame
+        new Bullet(bx, by, tank.getDir(), tank.tankFrame, tank.getGroup());//发射子弹
+    }
+}
