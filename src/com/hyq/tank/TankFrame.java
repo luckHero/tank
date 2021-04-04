@@ -123,7 +123,7 @@ public class TankFrame extends Frame {
         @Override
         public void keyPressed(KeyEvent e) { //键盘被按下时调用
             int keyCode = e.getExtendedKeyCode();
-            System.out.println("键盘按下的方法...111" + keyCode);
+          //  System.out.println("键盘按下的方法...111" + keyCode);
             switch (keyCode) {
                 case KeyEvent.VK_LEFT: //向左
                     bL = true;

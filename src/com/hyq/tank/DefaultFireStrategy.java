@@ -54,7 +54,7 @@ public class DefaultFireStrategy implements FireStrategy {
         int bx = tank.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2; //调整子弹的宽度
         int by = tank.y + Tank.HEIGHT / 2 - Bullet.HEIGH / 2; //调整子弹的高度
         if (tank.getGroup() == Group.GOOD) {
-            //TODO 这里new 出来的线程什么时候停止,还是一直继续运行
+
             new Thread(() -> {
                 new Audio(("audio/tank_fire.wav")).play();
             }).start();

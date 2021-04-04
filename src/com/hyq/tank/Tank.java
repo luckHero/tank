@@ -56,12 +56,12 @@ public class Tank {
         }
         move();//移动的方法
 
-        System.out.println("坦克位置 x:" + x + ",y:" + y);
+      //  System.out.println("坦克位置 x:" + x + ",y:" + y);
     }
 
     //坦克移动的方法
     private void move() {
-        if (!moving) return;
+        if (!moving) return;//判断坦克是否移动
         //判断坦克移动方向,向对应方向加减
 //        new Thread(()->new Audio(("audio/war1.wav")).loop()).start();
         switch (dir) {

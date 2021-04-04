@@ -6,6 +6,10 @@ package com.hyq.factory;
  * 简单工厂可扩展性不好
  */
 public class SimpleVehicleFactory {
+    /**
+     * 想创建什么对象只要在工厂里添加对应的方法
+     * @return
+     */
     public Car createCar() {
         //before processing
         return new Car();
