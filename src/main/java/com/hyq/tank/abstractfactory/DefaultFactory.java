@@ -18,8 +18,10 @@ public class DefaultFactory extends GameFactory {
         return new Explode(x, y, tankFrame);
     }
 
+    //
     @Override
-    public BaseBullet createBullet(int x, int y, TankFrame tankFrame) {
-        return null;
+    public BaseBullet createBullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
+        return new Bullet(x, y, dir, tankFrame, group);
     }
+
 }

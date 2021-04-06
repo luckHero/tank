@@ -1,5 +1,6 @@
 package com.hyq.tank.abstractfactory;
 
+import com.hyq.tank.Bullet;
 import com.hyq.tank.Dir;
 import com.hyq.tank.Group;
 import com.hyq.tank.TankFrame;
@@ -25,7 +26,9 @@ public class RectFactory extends GameFactory {
     }
 
     @Override
-    public BaseBullet createBullet(int x, int y, TankFrame tankFrame) {
-        return null;
+    public BaseBullet createBullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
+        return new RectBullet(x,y,dir,tankFrame,group);
     }
+
+
 }

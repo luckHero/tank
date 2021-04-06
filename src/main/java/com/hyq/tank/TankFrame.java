@@ -1,9 +1,6 @@
 package com.hyq.tank;
 
-import com.hyq.tank.abstractfactory.BaseExplode;
-import com.hyq.tank.abstractfactory.DefaultFactory;
-import com.hyq.tank.abstractfactory.GameFactory;
-import com.hyq.tank.abstractfactory.RectFactory;
+import com.hyq.tank.abstractfactory.*;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -19,13 +16,13 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 500, Dir.UP, this, Group.GOOD);//坦克类
-    List<Bullet> bullets = new ArrayList<>(); //设置子弹容器
+    public List<BaseBullet> bullets = new ArrayList<>(); //设置子弹容器
     //Bullet bullet = new Bullet(300, 300, Dir.DOWN, this); //子弹类
     public List<Tank> tanks = new ArrayList<>();//设置敌方坦克的容器
     public List<BaseExplode> explodes = new ArrayList<>();//爆炸的集合 换成工厂模式
-    static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;//游戏高度和宽度
+    public static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;//游戏高度和宽度
     //    Explode e=new Explode(100,100,this); //画一个爆炸的效果
-    public GameFactory gameFactory = new DefaultFactory();//初始化工厂
+    public GameFactory gameFactory = new RectFactory();//初始化工厂
 
     //tankFrame的空参构造,用来创建窗口类的
     public TankFrame() {

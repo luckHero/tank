@@ -25,7 +25,7 @@ public class Tank extends BaseTank {
     TankFrame tankFrame = null;
     private Group group = Group.BAD; //坦克的属性
     private Random random = new Random();
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
 
     public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;

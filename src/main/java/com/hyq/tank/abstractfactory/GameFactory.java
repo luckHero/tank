@@ -13,5 +13,5 @@ public abstract class GameFactory {
 
     public abstract BaseExplode createExplode(int x, int y, TankFrame tankFrame);
 
-    public abstract BaseBullet createBullet(int x, int y, TankFrame tankFrame);
+    public abstract BaseBullet createBullet(int x, int y,Dir dir, TankFrame tankFrame,Group group);
 }
