@@ -9,7 +9,7 @@ import com.hyq.abstractfactory.modern.ModernFactory;
 public class Main {
     public static void main(String[] args) {
         //创建现代工厂实现方式
-        ModernFactory modern = new ModernFactory();
+        AbstractFactory modern = new ModernFactory();
         Food food = modern.createAbstractFood();
         Vehicle vehicle = modern.createVehicle();
         Weapon weapon = modern.createWeapon();

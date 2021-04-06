@@ -12,9 +12,8 @@ import com.hyq.abstractfactory.Weapon;
  */
 public class ModernFactory extends AbstractFactory {
     @Override
-    public  Food createAbstractFood() {
-        return new Bread() {
-        };
+    public Food createAbstractFood() {
+        return new Bread();
     }
 
     @Override
