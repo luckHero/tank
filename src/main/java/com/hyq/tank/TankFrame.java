@@ -1,5 +1,10 @@
 package com.hyq.tank;
 
+import com.hyq.tank.abstractfactory.BaseExplode;
+import com.hyq.tank.abstractfactory.DefaultFactory;
+import com.hyq.tank.abstractfactory.GameFactory;
+import com.hyq.tank.abstractfactory.RectFactory;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -16,10 +21,11 @@ public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 500, Dir.UP, this, Group.GOOD);//坦克类
     List<Bullet> bullets = new ArrayList<>(); //设置子弹容器
     //Bullet bullet = new Bullet(300, 300, Dir.DOWN, this); //子弹类
-    List<Tank> tanks = new ArrayList<>();//设置敌方坦克的容器
-    List<Explode> explodes = new ArrayList<>();//爆炸的集合
+    public List<Tank> tanks = new ArrayList<>();//设置敌方坦克的容器
+    public List<BaseExplode> explodes = new ArrayList<>();//爆炸的集合 换成工厂模式
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;//游戏高度和宽度
-//    Explode e=new Explode(100,100,this); //画一个爆炸的效果
+    //    Explode e=new Explode(100,100,this); //画一个爆炸的效果
+    public GameFactory gameFactory = new DefaultFactory();//初始化工厂
 
     //tankFrame的空参构造,用来创建窗口类的
     public TankFrame() {
@@ -123,7 +129,7 @@ public class TankFrame extends Frame {
         @Override
         public void keyPressed(KeyEvent e) { //键盘被按下时调用
             int keyCode = e.getExtendedKeyCode();
-          //  System.out.println("键盘按下的方法...111" + keyCode);
+            //  System.out.println("键盘按下的方法...111" + keyCode);
             switch (keyCode) {
                 case KeyEvent.VK_LEFT: //向左
                     bL = true;

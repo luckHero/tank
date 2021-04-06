@@ -1,5 +1,7 @@
 package com.hyq.tank;
 
+import com.hyq.tank.abstractfactory.BaseBullet;
+
 import java.awt.*;
 
 /**
@@ -7,7 +9,7 @@ import java.awt.*;
  * @date 2021/3/26 18:45
  * 子弹类
  */
-public class Bullet {
+public class Bullet extends BaseBullet {
     private int x, y;
     public static int WIDTH = ResourceMgr.bulletD.getWidth(); //子弹的宽度
     public static int HEIGH = ResourceMgr.bulletD.getHeight();//子弹的高度
@@ -76,7 +78,7 @@ public class Bullet {
         }
         rectangle.x = this.x;
         rectangle.y = this.y;
-       // System.out.println("子弹x:" + x + ",子弹y:" + y);
+        // System.out.println("子弹x:" + x + ",子弹y:" + y);
         //  System.out.println("TankFrame.GAME_WIDTH:"+TankFrame.GAME_WIDTH +"TankFrame.HEIGHT:"+TankFrame.HEIGHT);
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;//超出范围将子弹属性设为死亡
     }
@@ -92,7 +94,7 @@ public class Bullet {
             this.die();//子弹死亡
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            tankFrame.explodes.add(new Explode(eX, eY, tankFrame));
+            tankFrame.explodes.add(tankFrame.gameFactory.createExplode(eX,eY,tankFrame));
         }
     }
 

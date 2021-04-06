@@ -1,5 +1,7 @@
 package com.hyq.tank;
 
+import com.hyq.tank.abstractfactory.BaseExplode;
+
 import java.awt.*;
 
 /**
@@ -7,7 +9,7 @@ import java.awt.*;
  * @date 2021/3/28 17:43
  * 爆炸类
  */
-public class Explode {
+public class Explode extends BaseExplode {
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();//爆炸的宽度
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();//爆炸的高度
     private int x, y;
@@ -25,5 +27,6 @@ public class Explode {
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[step++], x, y, null);
         if (step >= ResourceMgr.explodes.length) tankFrame.explodes.remove(this);//判断什么时候不画
+        new Thread(() -> new Audio("audio/explode.wav").play()).start();//开启线程发出爆炸的声音
     }
 }

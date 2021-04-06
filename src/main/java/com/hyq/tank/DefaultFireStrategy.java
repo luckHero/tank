@@ -58,12 +58,7 @@ public class DefaultFireStrategy implements FireStrategy {
             new Thread(() -> {
                 new Audio(("audio/tank_fire.wav")).play();
             }).start();
-//            try {
-//                Thread.sleep(60);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            thread.stop();
+
         }
         //new 出来子弹后,直接 通过构造方法加入到tankFrame
         new Bullet(bx, by, tank.getDir(), tank.tankFrame, tank.getGroup());//发射子弹
