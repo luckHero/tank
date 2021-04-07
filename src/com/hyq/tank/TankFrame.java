@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * 继承Frame类,窗口类
+ * View
  */
 public class TankFrame extends Frame {
     GameModel gameModel = new GameModel();

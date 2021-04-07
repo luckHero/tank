@@ -8,7 +8,8 @@ import java.util.List;
  * @author lucky
  * @date 2021/4/7 20:03
  * 游戏模型类
- * Facade 模式 调停者模式
+ * Facade 模式 门面模式
+ * Model
  */
 public class GameModel {
     Tank myTank = new Tank(200, 500, Dir.UP, this, Group.GOOD);//坦克类
