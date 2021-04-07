@@ -56,14 +56,16 @@ public class Tank {
         }
         move();//移动的方法
 
-        System.out.println("坦克位置 x:" + x + ",y:" + y);
+//        System.out.println("坦克位置 x:" + x + ",y:" + y);
     }
 
     //坦克移动的方法
     private void move() {
         if (!moving) return;
+        if (this.getGroup() == Group.GOOD) {
+            new Thread(() -> new Audio(("audio/tank_move.wav")).play()).start();
+        }
         //判断坦克移动方向,向对应方向加减
-//        new Thread(()->new Audio(("audio/war1.wav")).loop()).start();
         switch (dir) {
             case LEFT:
                 x -= SPEED;
@@ -104,10 +106,6 @@ public class Tank {
 
     //发射子弹
     public void fire(FireStrategy fireStrategy) {
-        //1.问题:这里的子弹画不出来 ,解决tank类需要有tankFrame 类的引用
-        /**
-         *  1.这里通过坦克类对tankFrame 这个类引用
-         */
         fireStrategy.fire(this);
     }
 
