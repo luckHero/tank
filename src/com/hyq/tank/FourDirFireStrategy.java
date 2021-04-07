@@ -13,9 +13,9 @@ public class FourDirFireStrategy implements FireStrategy {
         int by = tank.y + Tank.HEIGHT / 2 - Bullet.HEIGH / 2; //调整子弹的高度
 
         Dir[] dirs = Dir.values();
-        Arrays.asList(dirs).forEach(d->new Bullet(bx,by,d,tank.tankFrame,tank.getGroup()));
+        Arrays.asList(dirs).forEach(d -> new Bullet(bx, by, d, tank.gameModel, tank.getGroup()));
         //new 出来子弹后,直接 通过构造方法加入到tankFrame
-        new Bullet(bx, by, tank.getDir(), tank.tankFrame, tank.getGroup());
+        new Bullet(bx, by, tank.getDir(), tank.gameModel, tank.getGroup());
         if (tank.getGroup() == Group.GOOD) {
             //TODO 这里new 出来的线程什么时候停止,还是一直继续运行
             new Thread(() -> {

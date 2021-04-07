@@ -12,18 +12,18 @@ public class Explode {
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();//爆炸的高度
     private int x, y;
     // private boolean living=true;
-    private TankFrame tankFrame;
+    private GameModel gameModel;
     private int step = 0;//记录画哪一张图
 
-    public Explode(int x, int y, TankFrame tankFrame) {
+    public Explode(int x, int y, GameModel gameModel) {
         this.x = x;
         this.y = y;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
     }
 
     //画爆炸的类
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[step++], x, y, null);
-        if (step >= ResourceMgr.explodes.length) tankFrame.explodes.remove(this);//判断什么时候不画
+        if (step >= ResourceMgr.explodes.length) gameModel.explodes.remove(this);//判断什么时候不画
     }
 }

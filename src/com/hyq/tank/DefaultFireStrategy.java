@@ -26,7 +26,8 @@ public class DefaultFireStrategy implements FireStrategy {
     }
 
     /**
-     *  该方法必须静态
+     * 该方法必须静态
+     *
      * @return
      */
     public static DefaultFireStrategy getInstance() {
@@ -66,6 +67,6 @@ public class DefaultFireStrategy implements FireStrategy {
 //            thread.stop();
         }
         //new 出来子弹后,直接 通过构造方法加入到tankFrame
-        new Bullet(bx, by, tank.getDir(), tank.tankFrame, tank.getGroup());//发射子弹
+        new Bullet(bx, by, tank.getDir(), tank.gameModel, tank.getGroup());//发射子弹
     }
 }

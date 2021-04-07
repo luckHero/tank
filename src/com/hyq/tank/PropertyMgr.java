@@ -6,6 +6,7 @@ import java.util.Properties;
 /**
  * @author lucky
  * @date 2021/3/30 12:36
+ * 将资源管理类用静态内部类的方式进行管理
  */
 public class PropertyMgr {
     static Properties properties = new Properties();

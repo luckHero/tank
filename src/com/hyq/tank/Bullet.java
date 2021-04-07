@@ -14,27 +14,27 @@ public class Bullet {
     private static final int SPEED = 6;//子弹速度
     boolean living = true;//子弹是否还活着
     private Dir dir;//子弹的方向
-    private TankFrame tankFrame = null;
+    private GameModel gameModel = null;
     private Group group = Group.BAD;
     Rectangle rectangle = new Rectangle();//计算坦克图片矩形的类
 
-    public Bullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
+    public Bullet(int x, int y, Dir dir, GameModel gameModel, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
         this.group = group;
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGH;
-        tankFrame.bullets.add(this);
+        gameModel.bullets.add(this);
     }
 
     //绘制子弹的方法
     public void paint(Graphics g) {
         if (!living) {
-            tankFrame.bullets.remove(this);
+            gameModel.bullets.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -92,8 +92,8 @@ public class Bullet {
             this.die();//子弹死亡
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            tankFrame.explodes.add(new Explode(eX, eY, tankFrame));
-            new Thread(()->new Audio("audio/explode.wav").play()).start();
+            gameModel.explodes.add(new Explode(eX, eY, gameModel));
+            new Thread(() -> new Audio("audio/explode.wav").play()).start();
         }
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
  * 继承Frame类,窗口类
  */
 public class TankFrame extends Frame {
-    GameModel gameModel =new GameModel();
+    GameModel gameModel = new GameModel();
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;//游戏高度和宽度
 //    Explode e=new Explode(100,100,this); //画一个爆炸的效果
@@ -64,47 +64,6 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {//这里绘制的画笔是图片的,会画到内存中
         gameModel.paint(g);
-        Color color = g.getColor();
-        g.setColor(Color.white);
-        g.drawString("子弹的数量:" + bullets.size(), 10, 60);
-        g.drawString("坦克的数量:" + tanks.size(), 10, 80);
-        g.drawString("爆炸的数量:" + explodes.size(), 10, 100);
-        g.setColor(color);
-        myTank.paint(g);//绘制坦克
-        //TODO 这里有并发修改异常
-//        bullets.forEach(b -> {//画子弹
-//            b.paint(g);
-//        });
-        //TODO 解决方式一
-        //绘画子弹的方法
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
-        }
-        //TODO解决方法二  绘画子弹的方法
-//        Iterator<Bullet> iterator = bullets.iterator();
-//        for (bullets.iterator(); iterator.hasNext(); ) {
-//            Bullet bullet = iterator.next();
-        //绘画敌人坦克
-        for (int i = 0; i < tanks.size(); i++) {
-            tanks.get(i).paint(g);
-        }
-        //画爆炸
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
-        //碰撞检测的方法
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < tanks.size(); j++) {
-                bullets.get(i).collideWith(tanks.get(j));
-            }
-        }
-
-//            /**
-//             *  成员变量被private修饰,在其他类不能不引用,那这个成员变量的在内存中是放在哪里的
-//             *  为什么通过反射能够拿到类的私有成员变量
-//             */
-//            if (!bullet.living) iterator.remove();
-//        }
     }
 
     /**
@@ -160,7 +119,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL: //ctrl键发射子弹
-                    myTank.fire(new FourDirFireStrategy());//发射子弹 将主站坦克发射子弹改成向四周开火
+                    gameModel.getMyTank().fire(new FourDirFireStrategy());//发射子弹 将主站坦克发射子弹改成向四周开火
                 default:
                     break;
             }
@@ -172,14 +131,14 @@ public class TankFrame extends Frame {
         //移动主站坦克的方向
         private void setMainTankDir() {
             if (!bL && !bR && !bU && !bD) {//判断坦克是否静止
-                myTank.setMoving(false);
+                gameModel.getMyTank().setMoving(false);
             } else {
-                myTank.setMoving(true);//让坦克移动
+                gameModel.myTank.setMoving(true);//让坦克移动
                 //判断当前那个键盘被按下,设置坦克方向
-                if (bL) myTank.setDir(Dir.LEFT);
-                if (bR) myTank.setDir(Dir.RIGHT);
-                if (bU) myTank.setDir(Dir.UP);
-                if (bD) myTank.setDir(Dir.DOWN);
+                if (bL) gameModel.getMyTank().setDir(Dir.LEFT);
+                if (bR) gameModel.getMyTank().setDir(Dir.RIGHT);
+                if (bU) gameModel.getMyTank().setDir(Dir.UP);
+                if (bD) gameModel.getMyTank().setDir(Dir.DOWN);
             }
         }
     }

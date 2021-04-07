@@ -20,7 +20,6 @@ public class Tank {
     private static final int SPEED = 4;//坦克每次移动的偏移量
     private boolean moving = true;//坦克是否移动
     private boolean living = true;//坦克是否存活
-    TankFrame tankFrame = null;
     private Group group = Group.BAD; //坦克的属性
     private Random random = new Random();
     Rectangle rectangle = new Rectangle();
@@ -29,17 +28,17 @@ public class Tank {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
         this.group = group;
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
     }
-
+    GameModel gameModel;
     //绘制坦克自己
     public void paint(Graphics g) {
-        if (!living) tankFrame.tanks.remove(this);//坦克是否存活
+        if (!living) gameModel.tanks.remove(this);//坦克是否存活
         switch (dir) {
             case LEFT:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);//判断坦克的属性,画坦克图片
@@ -63,7 +62,7 @@ public class Tank {
     private void move() {
         if (!moving) return;
         if (this.getGroup() == Group.GOOD) {
-            new Thread(() -> new Audio(("audio/tank_move.wav")).play()).start();
+           // new Thread(() -> new Audio(("audio/tank_move.wav")).play()).start();
         }
         //判断坦克移动方向,向对应方向加减
         switch (dir) {
