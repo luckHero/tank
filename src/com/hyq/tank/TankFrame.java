@@ -13,11 +13,8 @@ import java.util.List;
  * 继承Frame类,窗口类
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 500, Dir.UP, this, Group.GOOD);//坦克类
-    List<Bullet> bullets = new ArrayList<>(); //设置子弹容器
-    //Bullet bullet = new Bullet(300, 300, Dir.DOWN, this); //子弹类
-    List<Tank> tanks = new ArrayList<>();//设置敌方坦克的容器
-    List<Explode> explodes = new ArrayList<>();//爆炸的集合
+    GameModel gameModel =new GameModel();
+
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;//游戏高度和宽度
 //    Explode e=new Explode(100,100,this); //画一个爆炸的效果
 
@@ -66,6 +63,7 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {//这里绘制的画笔是图片的,会画到内存中
+        gameModel.paint(g);
         Color color = g.getColor();
         g.setColor(Color.white);
         g.drawString("子弹的数量:" + bullets.size(), 10, 60);

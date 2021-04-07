@@ -25,7 +25,7 @@ public class Tank {
     private Random random = new Random();
     Rectangle rectangle = new Rectangle();
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
+    public Tank(int x, int y, Dir dir, GameModel gameModel, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
