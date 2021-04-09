@@ -1,9 +1,14 @@
-package com.hyq.tank;
+package com.hyq.strategy;
 
 /**
  * @author lucky
  * @date 2021/4/1 8:12
  */
+
+import com.hyq.tank.Audio;
+import com.hyq.tank.Bullet;
+import com.hyq.tank.Group;
+import com.hyq.tank.Tank;
 
 /**
  * 策略设计模式,将坦克的发射子弹的数量需要传递策略实现

@@ -1,4 +1,6 @@
-package com.hyq.tank;
+package com.hyq.strategy;
+
+import com.hyq.tank.Tank;
 
 /**
  * @author lucky

@@ -1,13 +1,13 @@
 package com.hyq.tank;
 
+import com.hyq.strategy.DefaultFireStrategy;
+import com.hyq.strategy.FourDirFireStrategy;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * 继承Frame类,窗口类

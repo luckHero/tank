@@ -1,5 +1,8 @@
 package com.hyq.tank;
 
+import com.hyq.strategy.DefaultFireStrategy;
+import com.hyq.strategy.FireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -8,12 +11,13 @@ import java.util.Random;
  * @date 2021/3/26 14:45
  * 定义坦克类
  */
-public class Tank {
+public class Tank extends GameObject {
     {
         System.out.println("非静态代码块.......");
     }
 
-    int x, y;
+    public int x, y;
+    public int oldX, oldY;
     public static int WIDTH = ResourceMgr.goodTankU.getWidth(); //坦克的宽度
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();//坦克
     private Dir dir = Dir.DOWN;//初始坦克方向
@@ -22,7 +26,7 @@ public class Tank {
     private boolean living = true;//坦克是否存活
     private Group group = Group.BAD; //坦克的属性
     private Random random = new Random();
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
 
     public Tank(int x, int y, Dir dir, GameModel gameModel, Group group) {
         this.x = x;
@@ -35,10 +39,12 @@ public class Tank {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
     }
-    GameModel gameModel;
+
+    public GameModel gameModel;
+
     //绘制坦克自己
     public void paint(Graphics g) {
-        if (!living) gameModel.tanks.remove(this);//坦克是否存活
+        if (!living) gameModel.removeGameObject(this);//坦克是否存活
         switch (dir) {
             case LEFT:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);//判断坦克的属性,画坦克图片
@@ -61,6 +67,8 @@ public class Tank {
     //坦克移动的方法
     private void move() {
         if (!moving) return;
+        oldX = x;
+        oldY = y;
         if (this.getGroup() == Group.GOOD) {
            // new Thread(() -> new Audio(("audio/tank_move.wav")).play()).start();
         }
@@ -84,8 +92,8 @@ public class Tank {
             DefaultFireStrategy defaultFireStrategy = DefaultFireStrategy.getInstance();
             this.fire(defaultFireStrategy);//让坦克移动的时候随机发射子弹
         }
-        if (this.group == Group.BAD && random.nextInt(100) > 85) randomDir(); //随机改变方向
-        broundCheck();//碰撞检测
+        if (this.group == Group.BAD && random.nextInt(100) > 90) randomDir(); //随机改变方向
+        broundCheck();//游戏边界的碰撞检测
         //碰撞检测完城后更新子弹的矩形
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -106,6 +114,12 @@ public class Tank {
     //发射子弹
     public void fire(FireStrategy fireStrategy) {
         fireStrategy.fire(this);
+    }
+
+    public void stop() {
+        x=oldX;
+        y=oldY;
+
     }
 
     //坦克死亡的方法

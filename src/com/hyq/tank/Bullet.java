@@ -7,16 +7,16 @@ import java.awt.*;
  * @date 2021/3/26 18:45
  * 子弹类
  */
-public class Bullet {
+public class Bullet extends GameObject {
     private int x, y;
     public static int WIDTH = ResourceMgr.bulletD.getWidth(); //子弹的宽度
     public static int HEIGH = ResourceMgr.bulletD.getHeight();//子弹的高度
     private static final int SPEED = 6;//子弹速度
     boolean living = true;//子弹是否还活着
     private Dir dir;//子弹的方向
-    private GameModel gameModel = null;
+    public GameModel gameModel = null;
     private Group group = Group.BAD;
-    Rectangle rectangle = new Rectangle();//计算坦克图片矩形的类
+   public Rectangle rectangle = new Rectangle();//计算坦克图片矩形的类
 
     public Bullet(int x, int y, Dir dir, GameModel gameModel, Group group) {
         this.x = x;
@@ -28,13 +28,13 @@ public class Bullet {
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGH;
-        gameModel.bullets.add(this);
+        gameModel.addGameObject(this);
     }
 
     //绘制子弹的方法
     public void paint(Graphics g) {
         if (!living) {
-            gameModel.bullets.remove(this);
+            gameModel.removeGameObject(this);
         }
         switch (dir) {
             case LEFT:
@@ -81,24 +81,10 @@ public class Bullet {
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;//超出范围将子弹属性设为死亡
     }
 
-    //子弹和坦克进行碰撞检测
-    public void collideWith(Tank tank) {
-        if (this.group == tank.getGroup()) return; //判断子弹的group 和坦克的group
-        //TODO 用一个rect 记录自己的位置 ,这里需要优化 每次子弹都会和坦克进行碰撞
-//        Rectangle bulletRect = new Rectangle(this.x, this.y, WIDTH, HEIGH); //子弹的矩形
-//        Rectangle tankRect = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT); //坦克的矩形
-        if (rectangle.intersects(tank.rectangle)) { //判断子弹是否与坦克相交
-            tank.die();//坦克死亡
-            this.die();//子弹死亡
-            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gameModel.explodes.add(new Explode(eX, eY, gameModel));
-            new Thread(() -> new Audio("audio/explode.wav").play()).start();
-        }
-    }
+
 
     //子弹死亡的方法
-    private void die() {
+    public void die() {
         this.living = false;
     }
 
