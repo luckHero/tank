@@ -1,6 +1,7 @@
 package com.hyq.tank;
 
 import com.hyq.cor.BulletTankCollider;
+import com.hyq.cor.ColldierChain;
 import com.hyq.cor.Collider;
 import com.hyq.cor.TankTankCollider;
 
@@ -18,8 +19,10 @@ import java.util.List;
 public class GameModel {
     Tank myTank = new Tank(200, 500, Dir.UP, this, Group.GOOD);//坦克类
 
-    Collider collider = new BulletTankCollider();//碰撞检测
-    Collider tankCollider = new TankTankCollider();
+    Collider collider = new BulletTankCollider();//子弹与坦克碰撞检测
+    Collider tankCollider = new TankTankCollider();//坦克与坦克的碰撞
+
+    ColldierChain colldierChain=new ColldierChain();
     private List<GameObject> gameObjects = new ArrayList<>();//游戏的容器
 
     //构造方法,初始化敌方坦克

@@ -69,8 +69,8 @@ public class Tank extends GameObject {
         if (!moving) return;
         oldX = x;
         oldY = y;
-        if (this.getGroup() == Group.GOOD) {
-           // new Thread(() -> new Audio(("audio/tank_move.wav")).play()).start();
+        if (this.getGroup() == Group.BAD) {
+            // new Thread(() -> new Audio(("audio/tank_move.wav")).play()).start();
         }
         //判断坦克移动方向,向对应方向加减
         switch (dir) {
@@ -117,8 +117,8 @@ public class Tank extends GameObject {
     }
 
     public void stop() {
-        x=oldX;
-        y=oldY;
+        x = oldX;
+        y = oldY;
 
     }
 
