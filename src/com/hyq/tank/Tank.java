@@ -26,7 +26,7 @@ public class Tank extends GameObject {
     private boolean living = true;//坦克是否存活
     private Group group = Group.BAD; //坦克的属性
     private Random random = new Random();
-    public Rectangle rectangle = new Rectangle();
+    private Rectangle rectangle = new Rectangle();
 
     public Tank(int x, int y, Dir dir, GameModel gameModel, Group group) {
         this.x = x;
@@ -119,7 +119,6 @@ public class Tank extends GameObject {
     public void stop() {
         x = oldX;
         y = oldY;
-
     }
 
     //坦克死亡的方法
@@ -165,5 +164,9 @@ public class Tank extends GameObject {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 }

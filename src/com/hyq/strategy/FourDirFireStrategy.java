@@ -20,9 +20,9 @@ public class FourDirFireStrategy implements FireStrategy {
         new Bullet(bx, by, tank.getDir(), tank.gameModel, tank.getGroup());
         if (tank.getGroup() == Group.GOOD) {
             //TODO 这里new 出来的线程什么时候停止,还是一直继续运行
-            new Thread(() -> {
-                new Audio(("audio/tank_fire.wav")).play();
-            }).start();
+//            new Thread(() -> {
+//                new Audio(("audio/tank_fire.wav")).play();
+//            }).start();
         }
     }
 }

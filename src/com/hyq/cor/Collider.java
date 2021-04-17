@@ -10,5 +10,5 @@ import com.hyq.tank.GameObject;
  */
 public interface Collider {
 
-    void collider(GameObject o1, GameObject o2);
+    boolean collider(GameObject o1, GameObject o2);
 }

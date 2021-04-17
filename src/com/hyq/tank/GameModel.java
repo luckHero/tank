@@ -19,10 +19,10 @@ import java.util.List;
 public class GameModel {
     Tank myTank = new Tank(200, 500, Dir.UP, this, Group.GOOD);//坦克类
 
-    Collider collider = new BulletTankCollider();//子弹与坦克碰撞检测
-    Collider tankCollider = new TankTankCollider();//坦克与坦克的碰撞
+//    Collider collider = new BulletTankCollider();//子弹与坦克碰撞检测
+//    Collider tankCollider = new TankTankCollider();//坦克与坦克的碰撞
 
-    ColldierChain colldierChain=new ColldierChain();
+    ColldierChain colldierChain = new ColldierChain();
     private List<GameObject> gameObjects = new ArrayList<>();//游戏的容器
 
     //构造方法,初始化敌方坦克
@@ -75,8 +75,9 @@ public class GameModel {
             for (int j = i + 1; j < gameObjects.size(); j++) {
                 GameObject o1 = gameObjects.get(i);
                 GameObject o2 = gameObjects.get(j);
-                collider.collider(o1, o2);//子弹与坦克的碰撞
-                tankCollider.collider(o1, o2);//坦克与坦克的碰撞
+                colldierChain.collider(o1, o2);//让链条自己去撞
+//                collider.collider(o1, o2);//子弹与坦克的碰撞
+//                tankCollider.collider(o1, o2);//坦克与坦克的碰撞
             }
         }
         //碰撞检测的方法
